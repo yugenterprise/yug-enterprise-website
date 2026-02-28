@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Gallery | Yug Enterprise – Industrial Visits & Shop</title>
+<meta name="description" content="Gallery of Yug Enterprise – Industrial visits, shop photos, safety equipment and project work.">
+<meta name="keywords" content="Yug Enterprise gallery, industrial visit, safety equipment shop">
+
+<style>
+:root{
+  --primary:#0f172a;
+  --accent:#f59e0b;
+  --light:#f8fafc;
+}
+*{box-sizing:border-box;font-family:Arial,system-ui}
+body{margin:0;background:var(--light);color:#111}
+
+/* HEADER */
+header{
+  background:#020617;
+  color:white;
+  padding:15px 30px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  flex-wrap:wrap;
+}
+header h1{margin:0;font-size:22px}
+nav a{
+  color:white;
+  text-decoration:none;
+  margin:0 12px;
+}
+nav a:hover{color:var(--accent)}
+
+/* HERO */
+.hero{
+  background:
+    linear-gradient(rgba(2,6,23,.75),rgba(2,6,23,.75)),
+    url("images/DSC07278.JPG.jpeg");
+  background-size:cover;
+  background-position:center;
+  padding:80px 20px;
+  text-align:center;
+  color:white;
+}
+.hero h2{font-size:38px;margin-bottom:10px}
+.hero p{max-width:700px;margin:auto;color:#e5e7eb}
+
+/* SECTION */
+.section{
+  max-width:1200px;
+  margin:auto;
+  padding:60px 20px;
+}
+.section h2{
+  text-align:center;
+  font-size:30px;
+  margin-bottom:40px;
+  color:var(--primary);
+}
+
+/* GALLERY GRID */
+.gallery{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+  gap:25px;
+}
+.photo{
+  background:white;
+  border-radius:12px;
+  overflow:hidden;
+  box-shadow:0 10px 25px rgba(0,0,0,.1);
+  transition:.3s;
+}
+.photo:hover{transform:translateY(-6px)}
+.photo img{
+  width:100%;
+  height:200px;
+  object-fit:cover;
+}
+.caption{
+  padding:15px;
+}
+.caption h3{
+  margin:0 0 6px;
+  font-size:17px;
+  color:var(--primary);
+}
+.caption p{
+  margin:0;
+  font-size:14px;
+  color:#475569;
+}
+
+/* CTA */
+.cta{
+  background:var(--accent);
+  text-align:center;
+  padding:50px 20px;
+}
+.cta h2{margin-bottom:10px}
+.cta a{
+  display:inline-block;
+  margin-top:12px;
+  background:#111;
+  color:white;
+  padding:12px 28px;
+  border-radius:6px;
+  text-decoration:none;
+}
+
+/* FOOTER */
+footer{
+  background:#020617;
+  color:#cbd5f5;
+  text-align:center;
+  padding:30px 20px;
+}
+footer a{color:var(--accent);text-decoration:none}
+
+@media(max-width:768px){
+  .hero h2{font-size:28px}
+}
+</style>
+</head>
+
+<body>
+
+<!-- HEADER -->
+<header>
+  <h1>Yug Enterprise</h1>
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="products.html">Products</a>
+    <a href="gallery.html" style="color:#f59e0b">Gallery</a>
+    <a href="about.html">About</a>
+    <a href="contact.html">Contact</a>
+    <a href="brochure.pdf" target="_blank">📄 View Brochure</a>
+  </nav>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <h2>Our Gallery</h2>
+  <p>
+    A glimpse of our industrial visits, well-organized shop infrastructure, and extensive stock of safety equipment reflects our commitment to quality and professionalism.
+  </p>
+</section>
+
+<!-- GALLERY -->
+<section class="section">
+  <h2>Shop Photos & Industrial Visits</h2>
+
+  <div class="gallery">
+
+    
+    <div class="photo">
+      <img src="images\gallery\shop.jpeg">
+      <div class="caption">
+        <h3>Shop Infrastructure</h3>
+        <p>Well-organized shop with industrial inventory.</p>
+      </div>
+    </div>
+    
+
+    <div class="photo">
+      <img src="images\gallery\safetyitems.jpeg">
+      <div class="caption">
+        <h3>PPE's Display</h3>
+        <p>Wide range PPE's for industrial use.</p>
+      </div>
+    </div>
+
+    <div class="photo">
+      <img src="images\gallery\cuttingweldingandfiresafety.jpeg">
+      <div class="caption">
+        <h3>Cutting Welding & Fire Safety</h3>
+        <p>Wide range Cutting Welding & Fire Safety.</p>
+      </div>
+    </div>
+
+    <div class="photo">
+      <img src="images\gallery\tools.jpeg">
+      <div class="caption">
+        <h3>Tools Display</h3>
+        <p>Heavy-duty Tools and accessories.</p>
+      </div>
+    </div>
+
+    <div class="photo">
+      <img src="images\gallery\abbresive.jpeg">
+      <div class="caption">
+        <h3>Abbresive Items</h3>
+        <p>Well-organized shop with a complete range of industrial inventory.</p>
+      </div>
+    </div>
+
+    <div class="photo">
+      <img src="images\gallery\CENTRE.png">
+      <div class="caption">
+        <h3>Centre Display</h3>
+        <p>On-site visits for safety and equipment supply.</p>
+      </div>
+    </div>
+
+    <div class="photo">
+      <img src="images\gallery\visit.jpeg">
+      <div class="caption">
+        <h3>Industrial Rescue Training</h3>
+        <p>Professional industrial rescue training with a strong focus on safety and emergency preparedness.</p>
+      </div>
+    </div>
+
+    <div class="photo">
+      <img src="images\gallery\visit1.jpeg">
+      <div class="caption">
+        <h3>Industrial Rescue Training</h3>
+        <p>Professional industrial rescue training with a strong focus on safety and emergency preparedness.</p>
+      </div>
+    </div>
+
+    <div class="photo">
+      <img src="images\gallery\visit2.jpeg">
+      <div class="caption">
+        <h3>UTCL Visit</h3>
+        <p>Professional industrial rescue training with a strong focus on safety and emergency preparedness.</p>
+      </div>
+    </div>
+
+    <div class="photo">
+      <img src="images\gallery\visit3.jpeg">
+      <div class="caption">
+        <h3>UTCL Visit</h3>
+        <p>Professional industrial rescue training with a strong focus on safety and emergency preparedness.</p>
+      </div>
+    </div>
+
+    <div class="photo">
+      <img src="images\gallery\visit4.jpeg">
+      <div class="caption">
+        <h3>Ambuja Cement Safety-Week</h3>
+        <p>Safety Week celebration promoting awareness, safe practices, and workplace protection across all industries.</p>
+      </div>
+    </div>
+
+    <div class="photo">
+      <img src="images\gallery\visit5.jpeg">
+      <div class="caption">
+        <h3>Ambuja Cement Safety-Week</h3>
+        <p>Safety Week celebration promoting awareness, safe practices, and workplace protection across all industries.</p>
+      </div>
+    </div>
+
+    <div class="photo">
+      <img src="images\gallery\visit6.jpeg">
+      <div class="caption">
+        <h3>Ambuja Cement Safety-Week</h3>
+        <p>Safety Week celebration promoting awareness, safe practices, and workplace protection across all industries.</p>
+      </div>
+    </div>
+
+    <div class="photo">
+      <img src="images\gallery\visit7.jpeg">
+      <div class="caption">
+        <h3>Ambuja Cement Safety-Week</h3>
+        <p>Safety Week celebration promoting awareness, safe practices, and workplace protection across all industries.</p>
+      </div>
+    </div>
+
+    <div class="photo">
+      <img src="images\gallery\visit8.jpeg">
+      <div class="caption">
+        <h3>UTCL Safety-Week</h3>
+        <p>Safety Week celebration promoting awareness, safe practices, and workplace protection across all industries.</p>
+      </div>
+    </div>
+
+    <div class="photo">
+      <img src="images\gallery\visit10.jpeg">
+      <div class="caption">
+        <h3>HPCL Safety-Week</h3>
+        <p>Safety Week celebration promoting awareness, safe practices, and workplace protection across all industries.</p>
+      </div>
+    </div>
+
+    <div class="photo">
+      <img src="images\gallery\visit11.jpeg">
+      <div class="caption">
+        <h3>HPCL Safety-Week</h3>
+        <p>Safety Week celebration promoting awareness, safe practices, and workplace protection across all industries.</p>
+      </div>
+    </div>
+
+    <div class="photo">
+      <img src="images\gallery\OSH.jpeg">
+      <div class="caption">
+        <h3>OSH India Visit</h3>
+        <p>Visit to OSH India for exploring the latest innovations in industrial safety and protective solutions.</p>
+      </div>
+    </div>
+
+    <div class="photo">
+      <img src="images\gallery\Engi Expo.jpeg">
+      <div class="caption">
+        <h3>Engi Expo Visit</h3>
+        <p>Participation in Engi Expo to explore advanced engineering solutions and the latest industrial innovations.</p>
+      </div>
+    </div>
+
+
+    <div class="photo">
+      <img src="images\gallery\Engi.jpeg">
+      <div class="caption">
+        <h3>Engi Expo Visit</h3>
+        <p>Participation in Engi Expo to explore advanced engineering solutions and the latest industrial innovations.</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta">
+  <h2>Want to Visit or Enquire?</h2>
+  <p>Contact Yug Enterprise for industrial safety solutions.</p>
+  <a href="https://wa.me/919979612228" target="_blank">WhatsApp Now</a>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>
+    📞 +91 99796 12228 / +91 99243 29629<br>
+    📧 <a href="mailto:yug.enterprise2228@gmail.com">yug.enterprise2228@gmail.com</a><br>
+    📍 10, Beside Mahadev Complex, Veraval Highway Road, Kodinar – Gir Somnath
+  </p>
+  <p>© 2026 Yug Enterprise | All Rights Reserved</p>
+</footer>
+
+</body>
+</html>

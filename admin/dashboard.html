@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Admin Dashboard | Yug Enterprise</title>
+
+  <style>
+    body{
+      margin:0;
+      font-family:Arial;
+      background:#f4f6f8;
+    }
+
+    .header{
+      background:#1f2937;
+      color:white;
+      padding:15px 30px;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+    }
+
+    .logout{
+      background:#ef4444;
+      color:white;
+      border:none;
+      padding:8px 14px;
+      cursor:pointer;
+      border-radius:5px;
+    }
+
+    .layout{
+      display:flex;
+    }
+
+    .sidebar{
+      width:220px;
+      background:#111827;
+      height:100vh;
+    }
+
+    .sidebar a{
+      display:block;
+      padding:14px 20px;
+      color:#d1d5db;
+      text-decoration:none;
+    }
+
+    .sidebar a:hover{
+      background:#1f2937;
+      color:white;
+    }
+
+    .content{
+      flex:1;
+      padding:30px;
+    }
+
+    .cards{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+      gap:20px;
+    }
+
+    .card{
+      background:white;
+      padding:20px;
+      border-radius:8px;
+      box-shadow:0 2px 10px rgba(0,0,0,0.08);
+    }
+
+    table{
+      width:100%;
+      border-collapse:collapse;
+      margin-top:20px;
+      background:white;
+    }
+
+    th,td{
+      padding:12px;
+      border-bottom:1px solid #eee;
+      text-align:left;
+    }
+
+    th{
+      background:#f9fafb;
+    }
+  </style>
+</head>
+
+<body>
+
+<div class="header">
+  <h2>Yug Enterprise – Admin Panel</h2>
+  <button class="logout" onclick="logout()">Logout</button>
+</div>
+
+<div class="layout">
+
+  <div class="sidebar">
+    <a href="dashboard.html">📊 Dashboard</a>
+    <a href="inquiries.html">📩 Inquiries</a>
+    <a href="products.html">📦 Products</a>
+  </div>
+
+  <div class="content">
+
+    <h2>Dashboard Overview</h2>
+
+    <div class="cards">
+      <div class="card">
+        <h3>Total Inquiries</h3>
+        <p id="count">0</p>
+      </div>
+    </div>
+
+    <h3>Latest Inquiries</h3>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Message</th>
+          <th>Date</th>
+        </tr>
+      </thead>
+      <tbody id="rows"></tbody>
+    </table>
+
+  </div>
+</div>
+
+<script>
+
+const token = localStorage.getItem("token");
+
+if(!token){
+  window.location.href="login.html";
+}
+
+fetch("http://localhost:5000/api/inquiries",{
+  headers:{
+    "Authorization":"Bearer "+token
+  }
+})
+.then(res=>{
+  if(res.status===401){
+    localStorage.removeItem("token");
+    window.location.href="login.html";
+  }
+  return res.json();
+})
+.then(data=>{
+  document.getElementById("count").innerText=data.length;
+
+  const rows=document.getElementById("rows");
+
+  data.slice(0,5).forEach(i=>{
+    rows.innerHTML+=`
+      <tr>
+        <td>${i.name}</td>
+        <td>${i.email}</td>
+        <td>${i.message}</td>
+        <td>${new Date(i.createdAt).toLocaleString()}</td>
+      </tr>
+    `;
+  });
+})
+.catch(()=>{
+  document.body.innerHTML="Server not responding";
+});
+
+function logout(){
+  localStorage.removeItem("token");
+  window.location.href="login.html";
+}
+
+</script>
+
+</body>
+</html>

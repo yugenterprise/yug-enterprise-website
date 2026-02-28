@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Admin Login | Yug Enterprise</title>
+  <style>
+    body{font-family:Arial;background:#f4f6f8;display:flex;justify-content:center;align-items:center;height:100vh}
+    .box{background:#fff;padding:30px;border-radius:8px;width:300px;box-shadow:0 4px 15px rgba(0,0,0,0.1)}
+    input,button{width:100%;padding:10px;margin-top:10px}
+    button{background:#1f2937;color:#fff;border:none;cursor:pointer}
+  </style>
+</head>
+<body>
+
+<div class="box">
+  <h2>Admin Login</h2>
+  <input id="u" placeholder="Username">
+  <input id="p" type="password" placeholder="Password">
+  <button onclick="login()">Login</button>
+</div>
+
+<script>
+function login(){
+  fetch("http://localhost:5000/api/login",{
+    method:"POST",
+    headers:{"Content-Type":"application/json"},
+    body:JSON.stringify({
+      username:document.getElementById("u").value,
+      password:document.getElementById("p").value
+    })
+  })
+  .then(res=>res.json())
+  .then(data=>{
+    if(data.success){
+      localStorage.setItem("token", data.token);
+      window.location.href="dashboard.html";
+    } else {
+      alert("Invalid username or password");
+    }
+  })
+  .catch(()=>{
+    alert("Server not responding");
+  });
+}
+</script>
+
+</body>
+</html>

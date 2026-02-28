@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Contact Us | Yug Enterprise – Industrial Safety & Power Tools</title>
+<meta name="description" content="Contact Yug Enterprise for industrial safety equipment, power tools, welding machines and tools-tackles in Gujarat.">
+
+<style>
+:root{
+  --primary:#0f172a;
+  --accent:#f59e0b;
+  --light:#f8fafc;
+}
+*{box-sizing:border-box;font-family:Arial,system-ui}
+body{margin:0;background:var(--light);color:#111}
+
+/* HEADER */
+header{
+  background:#020617;
+  color:white;
+  padding:15px 30px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  flex-wrap:wrap;
+}
+header h1{margin:0;font-size:22px}
+nav a{
+  color:white;
+  text-decoration:none;
+  margin:0 12px;
+}
+nav a:hover{color:var(--accent)}
+
+/* HERO */
+.hero{
+  background:
+    linear-gradient(rgba(2,6,23,.75),rgba(2,6,23,.75)),
+    url("images/DSC07278.JPG.jpeg");
+  background-size:cover;
+  background-position:center;
+  padding:70px 20px;
+  text-align:center;
+  color:white;
+}
+.hero h2{font-size:36px;margin-bottom:10px}
+
+/* SECTION */
+.section{
+  max-width:1100px;
+  margin:auto;
+  padding:60px 20px;
+}
+.grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:40px;
+}
+
+/* FORM */
+form{
+  background:white;
+  padding:30px;
+  border-radius:12px;
+  box-shadow:0 10px 25px rgba(0,0,0,.08);
+}
+form h3{margin-top:0;color:var(--primary)}
+input,textarea{
+  width:100%;
+  padding:12px;
+  margin-bottom:15px;
+  border:1px solid #e5e7eb;
+  border-radius:6px;
+  font-size:15px;
+}
+textarea{resize:none;height:120px}
+button{
+  background:var(--accent);
+  color:#111;
+  border:none;
+  padding:12px 26px;
+  border-radius:6px;
+  font-size:16px;
+  cursor:pointer;
+}
+
+/* INFO */
+.info{
+  background:#020617;
+  color:white;
+  padding:30px;
+  border-radius:12px;
+}
+.info h3{color:var(--accent);margin-top:0}
+.info p{margin:10px 0;line-height:1.6}
+
+/* MAP */
+.map{
+  margin-top:40px;
+  border-radius:12px;
+  overflow:hidden;
+  box-shadow:0 10px 25px rgba(0,0,0,.1);
+}
+
+/* FOOTER */
+footer{
+  background:#020617;
+  color:#cbd5f5;
+  text-align:center;
+  padding:30px 20px;
+  line-height:1.6;
+}
+
+@media(max-width:900px){
+  .grid{grid-template-columns:1fr}
+  .hero h2{font-size:28px}
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <h1>Yug Enterprise</h1>
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="products.html">Products</a>
+    <a href="gallery.html">Gallery</a>
+    <a href="about.html">About</a>
+    <a href="contact.html" style="color:#f59e0b">Contact</a>
+    <a href="brochure.pdf" target="_blank">📄 View Brochure</a>
+  </nav>
+</header>
+
+<section class="hero">
+  <h2>Contact Yug Enterprise</h2>
+</section>
+
+<section class="section">
+  <div class="grid">
+
+    <!-- FORM -->
+    <form id="contactForm" onsubmit="sendInquiry(event)">
+      <h3>Send Inquiry</h3>
+      <input type="text" id="name" placeholder="Your Name" required>
+      <input type="email" id="email" placeholder="Email Address" required>
+      <textarea id="message" placeholder="Your Requirement / Message" required></textarea>
+      <button type="submit">Send Inquiry</button>
+    </form>
+
+    <!-- INFO -->
+    <div class="info">
+      <h3>Contact Details</h3>
+      <p><strong>Phone:</strong><br>
+        +91 99796 12228<br>
+        +91 99243 29629
+      </p>
+
+      <p><strong>Email:</strong><br>
+        yug.enterprise2228@gmail.com
+      </p>
+
+      <p><strong>Address:</strong><br>
+        Veraval Highway Road,<br>
+        Kodinar – Gir Somnath,<br>
+        Gujarat – 362720
+      </p>
+    </div>
+
+  </div>
+
+  <div class="map">
+    <iframe 
+      src="https://www.google.com/maps?q=Kodinar,Gujarat&output=embed"
+      width="100%" height="350" style="border:0;" allowfullscreen="" loading="lazy">
+    </iframe>
+  </div>
+</section>
+
+<footer>
+  <p>
+    📞 +91 99796 12228 / +91 99243 29629<br>
+    📧 <a href="mailto:yug.enterprise2228@gmail.com">yug.enterprise2228@gmail.com</a><br>
+    📍 10, Beside Mahadev Complex, Veraval Highway Road, Kodinar – Gir Somnath
+  </p>
+  <p>© 2026 Yug Enterprise | All Rights Reserved</p>
+</footer>
+
+<script>
+function sendInquiry(e){
+  e.preventDefault();
+
+  fetch("http://localhost:5000/api/inquiries",{
+    method:"POST",
+    headers:{
+      "Content-Type":"application/json"
+    },
+    body:JSON.stringify({
+      name:document.getElementById("name").value,
+      email:document.getElementById("email").value,
+      message:document.getElementById("message").value
+    })
+  })
+  .then(res=>res.json())
+  .then(data=>{
+    if(data.success){
+      alert("Inquiry Sent Successfully");
+      document.getElementById("contactForm").reset();
+    }else{
+      alert("Failed to send inquiry");
+    }
+  })
+  .catch(()=>alert("Server not responding"));
+}
+</script>
+
+</body>
+</html>
