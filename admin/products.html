@@ -11,11 +11,39 @@
     .sidebar a{display:block;padding:14px 20px;color:#d1d5db;text-decoration:none}
     .sidebar a:hover{background:#1f2937;color:white}
     .content{flex:1;padding:30px}
-    input,textarea{width:100%;padding:8px;margin-bottom:10px}
-    button{padding:8px 12px;border:none;background:#3b82f6;color:white;cursor:pointer}
-    table{width:100%;border-collapse:collapse;margin-top:20px;background:white}
-    th,td{padding:10px;border-bottom:1px solid #eee;text-align:left}
-    img{width:60px}
+    input,textarea,select{
+      width:100%;
+      padding:8px;
+      margin-bottom:10px;
+    }
+    button{
+      padding:8px 12px;
+      border:none;
+      background:#3b82f6;
+      color:white;
+      cursor:pointer;
+      border-radius:4px;
+    }
+    table{
+      width:100%;
+      border-collapse:collapse;
+      margin-top:20px;
+      background:white
+    }
+    th,td{
+      padding:10px;
+      border-bottom:1px solid #eee;
+      text-align:left
+    }
+    img{
+      width:70px;
+      height:70px;
+      object-fit:cover;
+      border-radius:6px;
+    }
+    .deleteBtn{
+      background:#ef4444;
+    }
   </style>
 </head>
 <body>
@@ -35,12 +63,21 @@
   <div class="content">
     <h3>Add New Product</h3>
 
-    <input type="text" id="name" placeholder="Product Name">
-    <input type="text" id="category" placeholder="Category">
+    <input type="text" id="name" placeholder="Product Name" required>
+
+    <!-- CATEGORY DROPDOWN -->
+    <select id="category" required>
+      <option value="">Select Category</option>
+      <option value="Safety Products">Safety Products</option>
+      <option value="Power Tools">Power Tools</option>
+      <option value="Tools & Tackles">Tools & Tackles</option>
+      <option value="Fire Safety">Fire Safety</option>
+      <option value="Cutting & Welding">Cutting & Welding</option>
+    </select>
+
     <textarea id="description" placeholder="Description"></textarea>
 
-    <!-- FILE CHOOSE OPTION -->
-    <input type="file" id="image">
+    <input type="file" id="image" accept="image/*">
 
     <button onclick="addProduct()">Add Product</button>
 
@@ -60,12 +97,15 @@
 </div>
 
 <script>
+
+const API_BASE = "https://yug-enterprise-website.onrender.com";
 const token = localStorage.getItem("token");
+
 if(!token) location.href="login.html";
 
 /* LOAD PRODUCTS */
 function loadProducts(){
-  fetch("https://yug-enterprise-website.onrender.com/api/products")
+  fetch(`${API_BASE}/api/products`)
   .then(res=>res.json())
   .then(data=>{
     const rows=document.getElementById("rows");
@@ -75,10 +115,11 @@ function loadProducts(){
         <tr>
           <td>${p.name}</td>
           <td>${p.category}</td>
-          <td><img src="https://yug-enterprise-website.onrender.com/uploads/${p.image}" 
-     style="width:25%; height:10; object-fit:cover;">
           <td>
-            <button onclick="del('${p._id}')">Delete</button>
+            <img src="${API_BASE}/uploads/${p.image}">
+          </td>
+          <td>
+            <button class="deleteBtn" onclick="del('${p._id}')">Delete</button>
           </td>
         </tr>
       `;
@@ -89,13 +130,22 @@ function loadProducts(){
 /* ADD PRODUCT */
 function addProduct(){
 
-  const formData = new FormData();
-  formData.append("name", document.getElementById("name").value);
-  formData.append("category", document.getElementById("category").value);
-  formData.append("description", document.getElementById("description").value);
-  formData.append("image", document.getElementById("image").files[0]);
+  const name = document.getElementById("name").value;
+  const category = document.getElementById("category").value;
+  const imageFile = document.getElementById("image").files[0];
 
-  fetch("https://yug-enterprise-website.onrender.com/api/products",{
+  if(!name || !category || !imageFile){
+    alert("Please fill all required fields");
+    return;
+  }
+
+  const formData = new FormData();
+  formData.append("name", name);
+  formData.append("category", category);
+  formData.append("description", document.getElementById("description").value);
+  formData.append("image", imageFile);
+
+  fetch(`${API_BASE}/api/products`,{
     method:"POST",
     headers:{
       "Authorization":"Bearer "+token
@@ -106,6 +156,10 @@ function addProduct(){
   .then(data=>{
     if(data.success){
       alert("Product Added Successfully");
+      document.getElementById("name").value="";
+      document.getElementById("category").value="";
+      document.getElementById("description").value="";
+      document.getElementById("image").value="";
       loadProducts();
     } else {
       alert("Upload Failed");
@@ -119,13 +173,15 @@ function addProduct(){
 
 /* DELETE PRODUCT */
 function del(id){
-  fetch(`https://yug-enterprise-website.onrender.com/api/products/${id}`,{
-  method:"DELETE",
-  headers:{
-    "Authorization":"Bearer "+token
+  if(confirm("Delete this product?")){
+    fetch(`${API_BASE}/api/products/${id}`,{
+      method:"DELETE",
+      headers:{
+        "Authorization":"Bearer "+token
+      }
+    })
+    .then(()=>loadProducts());
   }
-})
-.then(()=>loadProducts());
 }
 
 function logout(){
@@ -134,6 +190,7 @@ function logout(){
 }
 
 loadProducts();
+
 </script>
 
 </body>
