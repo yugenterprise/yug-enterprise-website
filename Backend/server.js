@@ -25,10 +25,10 @@ app.use("/api", productRoutes);
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
 // Frontend folder
-app.use(express.static(path.join(__dirname, "../Frontend")));
+app.use(express.static(path.resolve(__dirname, "../Frontend")));
 
 // Admin folder
-app.use("/admin", express.static(path.join(__dirname, "../admin")));
+app.use("/admin", express.static(path.resolve(__dirname, "../admin")));
 
 /* ---------- DEFAULT ROUTE ---------- */
 app.get("/", (req, res) => {
