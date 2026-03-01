@@ -20,10 +20,17 @@ app.use("/api", inquiryRoutes);
 app.use("/api", productRoutes);
 
 /* ---------- STATIC FOLDERS ---------- */
+
+// Uploads folder
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
+
+// Frontend folder
 app.use(express.static(path.join(__dirname, "../Frontend")));
 
-/* ---------- FRONTEND ROUTE ---------- */
+// Admin folder
+app.use("/admin", express.static(path.join(__dirname, "../admin")));
+
+/* ---------- DEFAULT ROUTE ---------- */
 app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname, "../Frontend/index.html"));
 });

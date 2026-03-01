@@ -119,13 +119,13 @@ function addProduct(){
 
 /* DELETE PRODUCT */
 function del(id){
-  fetch(`https://yug-enterprise-website.onrender.com/api/products`,{
-    method:"DELETE",
-    headers:{
-      "Authorization":"Bearer "+token
-    }
-  })
-  .then(()=>loadProducts());
+  fetch(`https://yug-enterprise-website.onrender.com/api/products/${id}`,{
+  method:"DELETE",
+  headers:{
+    "Authorization":"Bearer "+token
+  }
+})
+.then(()=>loadProducts());
 }
 
 function logout(){
