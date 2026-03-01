@@ -5,6 +5,13 @@ const path = require("path");
 const Product = require("../models/Product");
 const authMiddleware = require("../middleware/authMiddleware");
 
+const fs = require("fs");
+const uploadPath = path.join(__dirname, "../uploads");
+
+if (!fs.existsSync(uploadPath)) {
+  fs.mkdirSync(uploadPath, { recursive: true });
+}
+
 /* MULTER STORAGE */
 
 const storage = multer.diskStorage({
