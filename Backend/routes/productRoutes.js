@@ -5,6 +5,8 @@ const path = require("path");
 const Product = require("../models/Product");
 const authMiddleware = require("../middleware/authMiddleware");
 const fs = require("fs");
+const { CloudinaryStorage } = require("multer-storage-cloudinary");
+const cloudinary = require("../config/cloudinary");
 
 
 const uploadPath = path.join(__dirname, "../uploads");
@@ -15,53 +17,30 @@ if (!fs.existsSync(uploadPath)) {
 
 /* MULTER STORAGE */
 
-const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, path.join(__dirname, "../uploads"));
-  },
-  filename: function (req, file, cb) {
-    cb(null, Date.now() + "-" + file.originalname);
+const storage = new CloudinaryStorage({
+  cloudinary: cloudinary,
+  params: {
+    folder: "yug-products",
+    allowed_formats: ["jpg","png","jpeg","webp"]
   }
 });
 
 const upload = multer({ storage });
 
 /* ADD PRODUCT */
-router.post(
-  "/products",
-  authMiddleware,
-  upload.single("image"),
-  async (req, res) => {
-    try {
-      if (!req.body) {
-        return res.status(400).json({ error: "Form data missing" });
-      }
+router.post("/products", upload.single("image"), async (req,res)=>{
 
-      const name = req.body.name;
-      const category = req.body.category;
-      const description = req.body.description;
+  const product = new Product({
+    name: req.body.name,
+    category: req.body.category,
+    description: req.body.description,
+    image: req.file.path
+  });
 
-      if (!req.file) {
-        return res.status(400).json({ error: "Image not uploaded" });
-      }
+  await product.save();
 
-      const product = new Product({
-        name,
-        category,
-        description,
-        image: req.file.filename,
-      });
-
-      await product.save();
-
-      res.json({ success: true });
-
-    } catch (err) {
-      console.log("PRODUCT ERROR:", err);
-      res.status(500).json({ error: "Upload failed" });
-    }
-  }
-);
+  res.json({success:true});
+});
 
 /* GET PRODUCTS */
 router.get("/products", async (req, res) => {
