@@ -116,7 +116,7 @@ function loadProducts(){
           <td>${p.name}</td>
           <td>${p.category}</td>
           <td>
-            <img src="${API_BASE}/uploads/${p.image}">
+            <img src="${p.image}">
           </td>
           <td>
             <button class="deleteBtn" onclick="del('${p._id}')">Delete</button>
