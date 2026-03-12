@@ -28,7 +28,7 @@ const storage = new CloudinaryStorage({
 const upload = multer({ storage });
 
 /* ADD PRODUCT */
-router.post("/products", upload.single("image"), async (req,res)=>{
+router.post("/products", authMiddleware, upload.single("image"), async (req,res)=>{
 
   const product = new Product({
     name: req.body.name,
@@ -53,8 +53,21 @@ router.delete(
   "/products/:id",
   authMiddleware,
   async (req, res) => {
+
+    const product = await Product.findById(req.params.id);
+
+    if(product && product.image){
+
+      const publicId = product.image.split("/").pop().split(".")[0];
+
+      await cloudinary.uploader.destroy("yug-products/" + publicId);
+
+    }
+
     await Product.findByIdAndDelete(req.params.id);
+
     res.json({ success: true });
+
   }
 );
 
