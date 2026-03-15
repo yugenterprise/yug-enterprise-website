@@ -44,7 +44,7 @@ router.post("/products", authMiddleware, upload.single("image"), async (req,res)
 
 /* GET PRODUCTS */
 router.get("/products", async (req, res) => {
-  const data = await Product.find().sort({ createdAt: -1 });
+  const data = await Product.find().sort({ createdAt: 1 });
   res.json(data);
 });
 
